@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 import requests
 # from pydantic import BaseModel
 
@@ -14,6 +14,9 @@ app = FastAPI()
 async def read_root():
     return {"message": "Welcome to the Wikipedia Retriever"}
 
+@app.get("/test")
+async def test_endpoint():
+    return {"message": "Test endpoint working"}
 
 @app.get("/article/{article_name}")
 async def get_article(article_name: str):
