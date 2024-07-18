@@ -1,6 +1,5 @@
 import httpx
 import asyncio
-import streamlit
 
 async def fetch_wikipedia_article(article_name):
     """
@@ -28,20 +27,6 @@ async def main():
     article_name = "Never_Gonna_Give_You_Up"
     result = await fetch_wikipedia_article(article_name)
     print(result)
-
-async def main():
-    st.title("Wikipedia Article Retriever")
-    article_name = st.text_input("Enter Wikipedia Article Name")
-    if st.button("Fetch Article"):
-        if article_name:
-            result = await fetch_wikipedia_article(article_name)
-        if "error" in result:
-            st.error(result["error"])
-        else:
-            st.success(f"Title: {result['title']}")
-            st.write(result['paragraph'])
-    else:
-        st.error("Please enter an article name.")
-
+            
 if __name__ == "__main__":
     asyncio.run(main())
