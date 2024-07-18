@@ -1,5 +1,5 @@
 from fastapi import FastAPI, HTTPException
-import requests
+import httpx
 from pydantic import BaseModel
 
 app = FastAPI()
@@ -32,7 +32,12 @@ async def get_article(article_name: str):
               otherwise raises HTTP exception 
     """
     url = f'https://en.wikipedia.org/api/rest_v1/page/summary/{article_name}'
-    response = requests.get(url)
+
+     # create asynch HTTP client sesh 
+    async with httpx.AsyncClient() as client:
+        # make GET request asynch
+        response = await client.get(url)
+
     if response.status_code == 200: # if successful
         data = response.json()
         return FirstParagraph(
